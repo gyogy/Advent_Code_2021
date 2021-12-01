@@ -1,4 +1,4 @@
-with open('input', 'r') as f:
+with open('../inputs/01', 'r') as f:
     raw_string = f.read()
 
 str_values = raw_string.split('\n')
