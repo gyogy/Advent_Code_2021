@@ -13,22 +13,12 @@ def sum_columns(array):
     return sums
 
 def get_gamma(sums):
-    gamma = ''
-    for sum in sums:
-        if sum > 500:
-            gamma += '1'
-        else:
-            gamma += '0'
-    return int(gamma, 2)
+    gamma = ['1' if sum > 500 else '0' for sum in sums]
+    return int(''.join(gamma), 2)
 
 def get_epsilon(sums):
-    epsilon = ''
-    for sum in sums:
-        if sum < 500:
-            epsilon += '1'
-        else:
-            epsilon += '0'
-    return int(epsilon, 2)
+    epsilon = ['0' if sum > 500 else '1' for sum in sums]
+    return int(''.join(epsilon), 2)
 
 def o_two(array):
     copy = array.copy()
