@@ -1,5 +1,5 @@
 import ipdb
-
+from copy import deepcopy
 
 def get_calls(filename):
     with open(filename, 'r') as f:
@@ -30,16 +30,17 @@ def transpose(boards):
 
 
 def bingo(boards, calls):
-    brds = boards.copy()
-    clls = calls.copy()
+    brds = deepcopy(boards)
+    clls = deepcopy(calls)
 
-    for num in clls:
-        for brd in brds:
+    for i, num in enumerate(clls):
+        for j, brd in enumerate(brds):
             for row in brd:
                 if num in row:
                     row.remove(num)
                 if len(row) == 0:
-                    print(f"Winning call is {num}")
+                    print(f"Winning call is {i}: {num}.")
+                    print(f"Winning board is {j}.")
                     print(f"Sum of remaining numbes on the winning board is: {sum([x for rw in brd for x in rw])}")
                     print(f"Call X Board = {num * sum([x for rw in brd for x in rw])}")
                     return
@@ -51,6 +52,5 @@ if __name__ == "__main__":
     boards = get_boards(filename)
     t_boards = transpose(boards)
     bingo(boards, calls)
-    bingo(t_boards, calls)
     ipdb.set_trace()
 
