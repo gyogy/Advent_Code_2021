@@ -31,19 +31,25 @@ def transpose(boards):
 
 def bingo(boards, calls):
     brds = deepcopy(boards)
-    clls = deepcopy(calls)
+    wins= []
+    winners = []
 
-    for i, num in enumerate(clls):
-        for j, brd in enumerate(brds):
-            for row in brd:
-                if num in row:
-                    row.remove(num)
-                if len(row) == 0:
-                    print(f"Winning call is {i}: {num}.")
-                    print(f"Winning board is {j}.")
-                    print(f"Sum of remaining numbes on the winning board is: {sum([x for rw in brd for x in rw])}")
-                    print(f"Call X Board = {num * sum([x for rw in brd for x in rw])}")
-                    return
+    for call in calls:
+        for i, brd in enumerate(brds):
+            if i in wins:
+                pass
+            else:
+                for row in brd:
+                    if call in row:
+                        row.remove(call)
+                    if len(row) == 0:
+                        s = sum([x for rw in brd for x in rw])
+                        wins.append(i)
+                        winners.append({'board': i, 'call': call, 'sum': s, 'product': call * s})
+                        if len(winners) == 100:
+                            ipdb.set_trace()
+                        break 
+    return winners
 
 
 if __name__ == "__main__":
@@ -51,6 +57,6 @@ if __name__ == "__main__":
     calls = get_calls(filename)
     boards = get_boards(filename)
     t_boards = transpose(boards)
-    bingo(boards, calls)
+    winners = bingo(t_boards, calls)
     ipdb.set_trace()
 
