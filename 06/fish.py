@@ -20,17 +20,18 @@ def pass_day(fishes):
     return next_day
 
 
+def copied_solution(init, days):
+    state = [init.count(i) for i in range(9)]
+    for day in range(days):
+        state = state[1:] + state[:1]
+        state[6] += state[8]
+    return sum(state)
+
 def main():
     file = "/home/gyogy/code/advent/inputs/06"
     fish = parse(file)
-    for i in range(256):
-        print(i)
-        fish = pass_day(fish)
-        if i == 79:
-            print(f"Part 1: {len(fish)} lanternfish after 80 days.")
-    print(f"Part 2: {len(fish)} lanternfish after 256 days.")
-#    ipdb.set_trace()
-
+    print(copied_solution(fish, 80))
+    print(copied_solution(fish, 256))
 
 if __name__ == "__main__":
     main()
