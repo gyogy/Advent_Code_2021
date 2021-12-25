@@ -1,5 +1,5 @@
 import unittest
-from .caves import parse, build_graph
+from .caves import parse, build_graph, is_special
 
 
 class TestCavesFunctions(unittest.TestCase):
@@ -30,3 +30,18 @@ class TestCavesFunctions(unittest.TestCase):
         }
         result = build_graph(self.nodes)
         self.assertEqual(expected, result)
+
+    def test_is_special(self):
+        special = 'c'
+
+        result = is_special('c', special)
+        self.assertTrue(result)
+        self.assertEqual(is_special.count, 1)
+
+        result = is_special('c', special)
+        self.assertTrue(result)
+        self.assertEqual(is_special.count, 2)
+
+        result = is_special('c', special)
+        self.assertFalse(result)
+        self.assertEqual(is_special.count, 2)
